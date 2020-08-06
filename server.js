@@ -1,18 +1,15 @@
 const express = require('express');
 
+const morgan = require('morgan');
 const hostname = 'localhost';
 const port = 3000; 
 
-//`express()` => Creates an Express application. 
-//`express()` is a top-level function exported by the express module.
 const app = express();
+app.use(morgan('dev'));
 
-//set up the server so that it returns
-//the same response for any request
-//middleware function in Express has access to 3 parameters
-//req, res, and next (which is a function)
+app.use(express.static(__dirname + '/public'));
+
 app.use((req, res) => {
-    console.log(req.headers);
     res.statusCode = 200; 
     res.setHeader('Content-Type', 'text/html');
     res.end('<html><body><h1>This is an Express Server</h1></body></html>');
